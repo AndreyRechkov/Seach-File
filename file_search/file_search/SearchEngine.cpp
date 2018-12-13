@@ -5,17 +5,21 @@
 #include <Windows.h>
 
 
-SearchEngine::SearchEngine(std::string PathRoot) 
+SearchEngine::SearchEngine(std::string PathRoot)
 {
 }
 
 SearchEngine::~SearchEngine()
 {
 }
+SearchEngine::SearchEngine()
+{
+	PathInfo = PathRoot;//пример передачи в FileInformation 
+}
+
 
 bool SearchEngine::Search(std::list<FileInformation> &Out) { return false; }
-
-void SearchEngine::SearchDirectory(std::list<FileInformation>)
+void SearchEngine::SearchDirectory()
 {
 	static const char* chFolderpath = "C:\\windows\\*";
 	HANDLE hFind;
@@ -31,14 +35,20 @@ void SearchEngine::SearchDirectory(std::list<FileInformation>)
 			PathRoot += '\n';
 		} while (FindNextFileA(hFind, &PathRoot2));
 		FindClose(hFind);
-		//std::cout << PathRoot;
 	}
+	//std::cout<<PathRoot;
+	
 }
 
-bool SearchEngine::AddInList(std::list<FileInformation> &input)
-{
-	return false;
-}
+
+
+
+
+
+
+
+
+
 
 
 
