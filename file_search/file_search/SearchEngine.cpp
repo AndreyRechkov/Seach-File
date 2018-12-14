@@ -3,6 +3,7 @@
 #include<iostream>
 #include<fstream>
 #include <Windows.h>
+#include <iterator>
 
 
 SearchEngine::SearchEngine(std::string PathRoot)
@@ -12,14 +13,17 @@ SearchEngine::SearchEngine(std::string PathRoot)
 SearchEngine::~SearchEngine()
 {
 }
-SearchEngine::SearchEngine()
+
+std::string  SearchEngine::Path()
 {
-	PathInfo = PathRoot;//пример передачи в FileInformation 
+	name_file = PathRoot;
+	std::cout << name_file;
+	return name_file;
 }
 
-
 bool SearchEngine::Search(std::list<FileInformation> &Out) { return false; }
-void SearchEngine::SearchDirectory()
+
+ std::string SearchEngine::SearchDirectory()
 {
 	static const char* chFolderpath = "C:\\windows\\*";
 	HANDLE hFind;
@@ -35,21 +39,12 @@ void SearchEngine::SearchDirectory()
 			PathRoot += '\n';
 		} while (FindNextFileA(hFind, &PathRoot2));
 		FindClose(hFind);
+		//std::cout << PathRoot;
+
 	}
-	//std::cout<<PathRoot;
-	
+	return PathRoot;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ SearchEngine::SearchEngine()
+ {
+	// name_file = PathRoot;//пример передачи через конструктор
+ }

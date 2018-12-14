@@ -4,15 +4,14 @@
 */
 #include <string>
 #include<list>
-class FileInformation 
+class FileInformation  
 {
-private:
-	std::string nameFile;
 public:
+	       std::string nameFile;
            std::string Print();
 		   FileInformation();
 	       ~FileInformation();
 		   void ExampleFile();
-		   
+		  
 };
 

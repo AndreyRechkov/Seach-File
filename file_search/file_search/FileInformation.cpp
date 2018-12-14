@@ -4,15 +4,20 @@
 #include "SearchEngine.h"
 
 void FileInformation::ExampleFile() {
-	SearchEngine connection;//переменная для связи
-	nameFile = connection.PathInfo;
-	std::cout << nameFile << std::endl;//получеие строки PathRoot в nameFile(проблема,в передачи самих названий файлов)
+	SearchEngine exe;
+	nameFile = exe.Path();
+	std::cout << nameFile;
 }
+
+
+
+
 std::string FileInformation::Print() {
   return "Here shoud be information about foundFile";
 }
 
 FileInformation::FileInformation() {
+	
 }
 
 
