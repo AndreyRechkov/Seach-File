@@ -3,48 +3,47 @@
 #include<iostream>
 #include<fstream>
 #include <Windows.h>
-#include <iterator>
+#include "FileInformation.h"
 
 
-SearchEngine::SearchEngine(std::string PathRoot)
+SearchEngine::SearchEngine()
 {
 }
+
 
 SearchEngine::~SearchEngine()
 {
 }
 
-std::string  SearchEngine::Path()
+
+/*std::string  SearchEngine::Path()
 {
 	name_file = PathRoot;
 	std::cout << name_file;
 	return name_file;
-}
+}*/
 
 bool SearchEngine::Search(std::list<FileInformation> &Out) { return false; }
 
- std::string SearchEngine::SearchDirectory()
+void SearchEngine::SearchDirectory(std::string PathRoot,std::list<FileInformation> &Out)
 {
-	static const char* chFolderpath = "C:\\windows\\*";
+    std::string data;
 	HANDLE hFind;
-	WIN32_FIND_DATAA PathRoot2; // <- WIN32_FIND_DATAA if using char strings (instead of TCHAR strings) 
-	hFind = FindFirstFileA(chFolderpath, &PathRoot2);
+	WIN32_FIND_DATAA PathRoot2; 
+	hFind = FindFirstFileA(PathRoot.c_str(), &PathRoot2);
 	if (hFind != INVALID_HANDLE_VALUE)
 	{
 		do
 		{
 			if (PathRoot2.dwFileAttributes == FILE_ATTRIBUTE_DIRECTORY)
-				PathRoot += "<DIR>"; // strings use += instead of strcat
-			PathRoot += PathRoot2.cFileName;
-			PathRoot += '\n';
+				data += "<DIR>";
+			FileInformation Example(PathRoot2.cFileName);
+			Out.push_back(Example);
 		} while (FindNextFileA(hFind, &PathRoot2));
+		
 		FindClose(hFind);
-		//std::cout << PathRoot;
-
+		//std::cout << data;
 	}
-	return PathRoot;
+
 }
- SearchEngine::SearchEngine()
- {
-	// name_file = PathRoot;//пример передачи через конструктор
- }
+ 

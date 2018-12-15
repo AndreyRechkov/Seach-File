@@ -1,23 +1,15 @@
 #include "pch.h"
 #include "FileInformation.h"
 #include<iostream>
-#include "SearchEngine.h"
-
-void FileInformation::ExampleFile() {
-	SearchEngine exe;
-	nameFile = exe.Path();
-	std::cout << nameFile;
-}
-
-
-
+#include<string>
 
 std::string FileInformation::Print() {
-  return "Here shoud be information about foundFile";
+	std::cout << nameFile;
+    return nameFile;
 }
 
-FileInformation::FileInformation() {
-	
+FileInformation::FileInformation(std::string in) {
+	nameFile = in;
 }
 
 

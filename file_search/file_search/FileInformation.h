@@ -6,12 +6,12 @@
 #include<list>
 class FileInformation  
 {
-public:
-	       std::string nameFile;
-           std::string Print();
-		   FileInformation();
+private:
+	std::string nameFile;
+public: 
+		   std::string Print();
+		   FileInformation(std::string in);
 	       ~FileInformation();
-		   void ExampleFile();
 		  
 };
 

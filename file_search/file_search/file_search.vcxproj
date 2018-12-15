@@ -152,13 +152,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="FileInformation.h" />
-    <ClInclude Include="FileInformationEx.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="SearchEngine.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FileInformation.cpp" />
-    <ClCompile Include="FileInformationEx.cpp" />
     <ClCompile Include="file_search.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
