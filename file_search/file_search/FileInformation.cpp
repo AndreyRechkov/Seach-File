@@ -4,7 +4,6 @@
 #include<string>
 
 std::string FileInformation::Print() {
-	std::cout << nameFile;
     return nameFile;
 }
 
