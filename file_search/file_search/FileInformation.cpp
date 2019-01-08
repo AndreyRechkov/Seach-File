@@ -9,8 +9,8 @@ std::string FileInformation::Print() {
 
 std::string FileInformation::FindFile()
 {
-	/*std::string example;
-	std::cout << "Vvedite: ";
+	std::string example;
+	/*std::cout << "Vvedite: ";
 	std::cin >> example;
 		if (example == nameFile) {
 			std::cout << example;
@@ -20,7 +20,7 @@ std::string FileInformation::FindFile()
 			std::cout << "Empty is File" << std::endl;
 			exit(0);
 		}*/
-	return 0;
+	return example;
 }
 
 FileInformation::FileInformation(std::string in) {

@@ -7,7 +7,7 @@ class SearchEngine
 {
 public:
 	 SearchEngine();
-     void SearchDirectory(const std::wstring &PathRoot, std::list<FileInformation> &Out);
+     void SearchDirectory(const std::string &PathRoot, std::list<FileInformation> &Out);
      bool Search(std::list<FileInformation> &Out);//метод поиска файла(проверка на пустоту далее)
 	 ~SearchEngine();
 };
