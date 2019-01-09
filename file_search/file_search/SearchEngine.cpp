@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <string>
 #include<vector>
+#include <cstring>
 
 SearchEngine::SearchEngine()
 {
@@ -19,22 +20,20 @@ SearchEngine::~SearchEngine()
 bool SearchEngine::Search(std::list<FileInformation> &Out) { return false; }
 
 
-void SearchEngine::SearchDirectory(const std::string &PathRoot, std::list<FileInformation> &Out)
+void SearchEngine::SearchDirectory(const std::string &PathRoot, std::list<FileInformation> &Out, std::string userName)
 {
 	std::string tmp = PathRoot + "\\*";
 	HANDLE hFind;
+	//char stop;
 	WIN32_FIND_DATAA PathRoot2;
-
 	hFind = FindFirstFileA(tmp.c_str(), &PathRoot2);
-	//PathRoot.erase(PathRoot.find('*'));
-	//PathRoot.append(PathRoot2.cFileName);
 	if (hFind == INVALID_HANDLE_VALUE) {
 		std::cout << ("Invalid file handle. Error  \n", GetLastError());
 
 	}
 	else {
 		std::list<std::string> Example;
-		
+
 		do
 		{
 			if (PathRoot2.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
@@ -43,28 +42,55 @@ void SearchEngine::SearchDirectory(const std::string &PathRoot, std::list<FileIn
 					continue;
 			}
 			tmp = PathRoot + "\\" + PathRoot2.cFileName;
-			//std::cout << tmp << std::endl;
-
-			if (PathRoot2.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) 
+			if (PathRoot2.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 				Example.push_back(tmp);
-			    Out.push_back(tmp);
-		
-			//if (strcmp(PathRoot2.cFileName, ".") == 0 || strcmp(PathRoot2.cFileName, "..") == 0) continue;
-			//if (PathRoot2.dwFileAttributes & FILE_ATTRIBUTE_SYSTEM) { continue; }
-
-			/*if (PathRoot2.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
-				SearchDirectory("d", Out);
-				PathRoot.append(PathRoot2.cFileName);
-				std::string(PathRoot2.cFileName);
-				
-			}
-				FileInformation Example(PathRoot + PathRoot2.cFileName);
-				Out.push_back(Example);*/
 		} while (FindNextFileA(hFind, &PathRoot2));
 		FindClose(hFind);
-		for (std::list<std::string>::iterator iter = Example.begin(), end = Example.end(); iter != end; ++iter) 
-			SearchDirectory(*iter, Out);
-		//FileInformation Example();
-		//Out.push_back(tmp);
+		for (std::list<std::string>::iterator iter = Example.begin(), end = Example.end(); iter != end; ++iter)
+			SearchDirectory(*iter, Out, userName);
+		if (strstr(tmp.c_str(), userName.c_str())) {
+			Out.push_back(tmp);
+		}
+	}
+}
+
+void SearchEngine::SearchInFile(const std::string &PathRoot, std::string you)
+{
+	setlocale(LC_ALL, "Russian");
+	std::string tmp = "D:\\" + PathRoot + "\\*";
+	HANDLE hFind;
+	WIN32_FIND_DATAA PathRoot2;
+	hFind = FindFirstFileA(tmp.c_str(), &PathRoot2);
+	std::string data;
+	if (hFind == INVALID_HANDLE_VALUE) {
+		std::cout << ("Invalid file handle. Error  \n", GetLastError());
+
+	}
+	else {
+		std::vector<std::string> Example;
+		do
+		{
+			if (PathRoot2.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+			{
+				if ((!lstrcmpA(PathRoot2.cFileName, ".")) || (!lstrcmpA(PathRoot2.cFileName, "..")))
+					continue;
+			}
+			tmp = "D:\\" + PathRoot + "\\" + PathRoot2.cFileName;
+
+			std::ifstream fin(tmp);
+			while (getline(fin, data)) {
+				if (strstr(data.c_str(), you.c_str())) {
+					std::cout << tmp << std::endl;
+					std::cout << you << " " << "The position: " << data.find(you) << std::endl;
+					std::cout << data << std::endl;
+				}
+
+			}
+
+			fin.close();
+
+		} while (FindNextFileA(hFind, &PathRoot2));
+		FindClose(hFind);
+
 	}
 }
